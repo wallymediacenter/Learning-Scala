@@ -1,59 +1,40 @@
+import scala.math.random
 import scala.collection.mutable.ArrayBuffer
 
 object Test{
   def main(args:Array[String]) : Unit = {
-    //1.
-    def signum(x : Double) = if(x >= 0) 1 else -1
 
-    //4/
-    for(i <- 10 to 1 by -1) print(i)
-    println()
-    //OR
-    for(i <- (1 to 10).reverse) print(i)
-    println()
-
-    def countdown(n:Int) : Unit = {
-      for(i <- n to 0 by -1) print(i + " ")
-      println()
+    def randomArr(n : Int) = {
+      var arr = new ArrayBuffer[Double]()
+      for(i <- 0 until n) {
+        arr += random
+      }
+      arr.toArray
     }
-    countdown(20)
+    println(randomArr(10).mkString(" | "))
 
-    var x = 1;
-    for(c <- "Hello") x*=c.toInt
-    println(x)
+    val arr =Array[Int](1, 2, 3, 4, 5, 6, 7)
+    var temp : Int = 0
+    for(i <- 0 until (arr.length-1, 2) ){
+      temp = arr(i)
+      arr(i) = arr(i+1)
+      arr(i+1) = temp
+    }
+    println(arr.mkString(" | "))
 
-    //8
-    def product(s : String) = s.foldLeft(1)(_*_.toInt)
-    println(product("Hello"))
+    var arr2 = for(i <- 0 until arr.length) yield{
+      if(i == arr.length -1 && arr.length % 2 == 1) arr(i) else if(i%2==0)arr(i+1) else arr(i-1)
+    }
+    println(arr2.mkString(" | "))
 
-    //Array for Scala
-    val nums = new Array[Int](10) //Fixed-length array of length 10 and type INT
+    val arr3 = Array[Int](1, 2, 3, -3, -4, -5, 1, 2, 0, 0)
 
-    //ArrayBuffer that grows and strink on demand
-    val arr = new ArrayBuffer[Int]() //Create an empty array
+    var arr4 = for(i <- arr3 if(i > 0) ) yield i
+    var tempArray = for(i <- arr3 if(i == 0) ) yield i
+    arr4 = arr4 ++ tempArray
+    tempArray = for(i <- arr3 if(i<0)) yield i
+    arr4 = arr4 ++ tempArray
 
-    arr += 1 //Add to the end 1 as an new element of the array
-
-    arr ++= Array(1,2,3,4) //Add a collection
-
-    arr.insert(2, 3) // Insert 3 at the index 2
-
-    println(arr.toArray.mkString(" - "))
-
-    //NOTE 0 to 3. (3) is inclusive  On the other hand 0 until 3, (3) is not inclusive
-
-    val a = 0 to 10
-    for( i <- 0 until (a.length, 2) ) print(i) //Increments my 2
-    println()
-
-    //Transofrming array
-    val b = for(element <- a) yield 10*element
-    println(b.mkString(" - "))
-
-    val a2 = Array(1, 2, 3, 4, -10, 11, 12, 13)
-    val negIndex = for(i <- 0 until a2.length if a2(i) < 0) yield i
-    println("Index " +negIndex.mkString + " Value " + a2(negIndex(0)))
-
-    
+    println(arr4.mkString(" | "))
   }
 }
