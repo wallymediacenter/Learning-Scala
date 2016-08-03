@@ -1,58 +1,59 @@
-import scala.math._ /*_ is the wildcard similar to * in java*/
+import scala.collection.mutable.ArrayBuffer
 
-object Test {
-  def main(args : Array[String]) = {
-    println("Hello World");
+object Test{
+  def main(args:Array[String]) : Unit = {
+    //1.
+    def signum(x : Double) = if(x >= 0) 1 else -1
 
-    //CREATING BIG INTEGER > 16 digits
-    val bigInteger = BigInt("156548184697878154891881845448458484");
-    println("Big Integer:\n" + bigInteger);
+    //4/
+    for(i <- 10 to 1 by -1) print(i)
+    println()
+    //OR
+    for(i <- (1 to 10).reverse) print(i)
+    println()
 
-    //Similarly BIG Decimal
-    val pi  = BigDecimal("3.14159265358979323846264338327950288419716939937510");
-    println("Big Decinal Pi:\n" + pi);
-
-    //ENCOURAGE to use val(a fixed value) instead of var.
-    //var sould only be used if the variable really need to change the content
-
-    //USE methods to convert between numeric types
-    val testInt:Double = 10.99;
-    println("Convert Double to Integer " + testInt.toInt);
-
-    //Mathematical function
-    println("sqrt(2) =" + sqrt(2));
-
-    // Static method in java is similar to singleton object, and companion object
-
-    //Scala method can be created without () (a.k.a parentheses). METHOD that doesn't modify the object has no ()
-
-    //String
-    println("String as array" + "number4"(4)); //this is equivalent to "number4".charAt(4)
-
-    //The use if BigInt
-
-    val twoPow = BigInt(2);
-    println("2^1024 = " + twoPow.pow(1024));
-
-    //Class Unit that have one value (), Unit ~ void in java. () is a place holder for "no useful value"
-
-    val example = 10 + //
-    11
-    println("10 + 11 = " + example); //Use // to connect the next line
-
-    //{Block} contains a sequence of expression, and the result is also an expression
-    val distance = {
-      val dx = 10;
-      val dy = 20;
-      sqrt(dx*dx + dy*dy); //Value of distance is the last expression
+    def countdown(n:Int) : Unit = {
+      for(i <- n to 0 by -1) print(i + " ")
+      println()
     }
+    countdown(20)
 
-    println("Distance " + distance);
+    var x = 1;
+    for(c <- "Hello") x*=c.toInt
+    println(x)
 
-    //For loop
-    for(i <- 1 to 10) println("Loop #:" + i);
+    //8
+    def product(s : String) = s.foldLeft(1)(_*_.toInt)
+    println(product("Hello"))
 
-    val s = "Traverse";
-    for(i <- 0 until s.length) println("Letter Counting: " + s(i));
+    //Array for Scala
+    val nums = new Array[Int](10) //Fixed-length array of length 10 and type INT
+
+    //ArrayBuffer that grows and strink on demand
+    val arr = new ArrayBuffer[Int]() //Create an empty array
+
+    arr += 1 //Add to the end 1 as an new element of the array
+
+    arr ++= Array(1,2,3,4) //Add a collection
+
+    arr.insert(2, 3) // Insert 3 at the index 2
+
+    println(arr.toArray.mkString(" - "))
+
+    //NOTE 0 to 3. (3) is inclusive  On the other hand 0 until 3, (3) is not inclusive
+
+    val a = 0 to 10
+    for( i <- 0 until (a.length, 2) ) print(i) //Increments my 2
+    println()
+
+    //Transofrming array
+    val b = for(element <- a) yield 10*element
+    println(b.mkString(" - "))
+
+    val a2 = Array(1, 2, 3, 4, -10, 11, 12, 13)
+    val negIndex = for(i <- 0 until a2.length if a2(i) < 0) yield i
+    println("Index " +negIndex.mkString + " Value " + a2(negIndex(0)))
+
+    
   }
 }

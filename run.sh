@@ -1,2 +1,2 @@
-scalac Test.scala
-scala Test
+scalac -d bin Test.scala
+scala -classpath bin Test
