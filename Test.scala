@@ -36,5 +36,13 @@ object Test{
     arr4 = arr4 ++ tempArray
 
     println(arr4.mkString(" | "))
+
+    //8.
+    val arr5 = ArrayBuffer[Int](-1,2,3,-2,-3,1,2,3,4,5,-14)
+
+    var arrIndexTemp = for(i <- 0 until arr5.length if arr5(i) < 0) yield i
+    val arrIndex = arrIndexTemp.drop(1)
+    //for(i <- arrIndex) arr5.remove(i)
+    //println(arr5.mkString(" | "))
   }
 }
